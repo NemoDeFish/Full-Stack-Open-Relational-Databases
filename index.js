@@ -19,12 +19,17 @@ app.use("/api", sessionsRouter);
 app.use("/api/authors", authorsRouter);
 app.use("/api/readinglists", readinglistsRouter);
 
+/* Solution: move below 'errorHandler' function into './util/middleware' instead of defining it here and import with `const { errorHandler } = require('./util/middleware')` */
 const errorHandler = (error, request, response, next) => {
+  /* Solution: logging is not required as it clutters the output, below error handling is sufficient */
   console.error(error.message);
 
   if (error.name === "SequelizeValidationError") {
     return response.status(400).send({ error: error.errors.map((error) => error.message) });
+    /* Solution: separates into 2 separate if statements. However I feel both is fine */
   } else if (error.name === "SequelizeDatabaseError") {
+    /* Solution: includes `console.log(error)`, not sure what for */
+    /* Solution: returns `error: 'bad data'...'` instead of `error.message` */
     return response.status(400).send({ error: error.message });
   }
 

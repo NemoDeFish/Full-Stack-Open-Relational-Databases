@@ -29,6 +29,7 @@ Readinglist.init(
   {
     sequelize,
     underscored: true,
+    /* Solution: let timestamps be the default 'true' instead of explicitly declaring it to be false even though question does not state is required */
     timestamps: false,
     modelName: "readinglists",
   }

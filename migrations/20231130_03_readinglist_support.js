@@ -22,6 +22,7 @@ module.exports = {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
+      /* Solution: also includes the timestamps, however, the question did not state that it is required and I have not included it in the models too */
     });
   },
   down: async ({ context: queryInterface }) => {

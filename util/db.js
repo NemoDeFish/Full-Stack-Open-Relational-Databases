@@ -3,6 +3,7 @@ const { DATABASE_URL } = require("./config");
 const { Umzug, SequelizeStorage } = require("umzug");
 
 const sequelize = new Sequelize(DATABASE_URL);
+/* Solution: includes `dialectOptions`, but not needed as I'm using Fly.io instead of Heroku */
 
 const connectToDatabase = async () => {
   try {
@@ -38,5 +39,8 @@ const rollbackMigration = async () => {
   await sequelize.authenticate();
   const migrator = new Umzug(migrationConf);
   await migrator.down();
+  /* Solution: includes `sequelize.close()`, not sure if it's necessary, the examples does not include this */
 };
+
+/* Solution: also exports 'sequelize', I don't think it's required */
 module.exports = { connectToDatabase, sequelize, rollbackMigration };
